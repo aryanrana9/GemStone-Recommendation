@@ -1,0 +1,354 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg-gradient-start: #030014;
+    --bg-gradient-end: #0c082b;
+    --card-bg: rgba(13, 10, 37, 0.45);
+    --card-border: rgba(99, 102, 241, 0.15);
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --neon-glow: rgba(99, 102, 241, 0.35);
+  }
+
+  :root.light {
+    --bg-gradient-start: #f8fafc;
+    --bg-gradient-end: #e2e8f0;
+    --card-bg: rgba(255, 255, 255, 0.75);
+    --card-border: rgba(99, 102, 241, 0.2);
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --neon-glow: rgba(99, 102, 241, 0.15);
+  }
+
+  body {
+    @apply font-sans transition-colors duration-300;
+    background-color: var(--bg-gradient-start);
+    background-image: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+                      linear-gradient(to bottom, var(--bg-gradient-start), var(--bg-gradient-end));
+    color: var(--text-primary);
+    overflow-x: hidden;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(3, 0, 20, 0.3);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(99, 102, 241, 0.35);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(99, 102, 241, 0.6);
+}
+
+/* Glassmorphism Utilities */
+.glass {
+  background: var(--card-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--card-border);
+}
+
+.glass-glow {
+  background: var(--card-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--card-border);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37),
+              0 0 16px 0 var(--neon-glow);
+}
+
+.glass-premium {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1),
+              0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.light .glass-premium {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.4) 100%);
+  border: 1px solid rgba(99, 102, 241, 0.15);
+  box-shadow: 0 10px 30px rgba(99, 102, 241, 0.05);
+}
+
+/* Glowing text gradients */
+.text-gradient-cosmic {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-violet-400 via-indigo-400 to-cyan-400;
+}
+
+.text-gradient-gold {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-amber-400 via-yellow-300 to-orange-400;
+}
+
+/* Star field generator */
+.stars-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.star {
+  position: absolute;
+  background-color: white;
+  border-radius: 50%;
+  opacity: 0.3;
+}
+
+.star-fast {
+  animation: twinkle 2s infinite ease-in-out;
+}
+
+.star-slow {
+  animation: twinkle 5s infinite ease-in-out;
+}
+
+/* Print simulation for Report Cards */
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .print-area {
+    width: 100% !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+  }
+}
+
+/* Light Mode contrast fixes */
+.light .stars-container {
+  display: none !important;
+}
+
+.light .text-gradient-cosmic {
+  background-image: linear-gradient(to right, #6d28d9, #4f46e5, #0891b2) !important;
+}
+
+.light .text-gradient-gold {
+  background-image: linear-gradient(to right, #b45309, #d97706, #c2410c) !important;
+}
+
+/* Light Mode text-white overrides */
+.light .text-white {
+  color: #0f172a !important; /* default text-white to slate-900 */
+}
+
+/* Restore white text color for buttons, badges, and elements with solid colored/gradient backgrounds */
+.light button.bg-indigo-600,
+.light button.bg-indigo-500,
+.light button.bg-violet-600,
+.light button.bg-rose-600,
+.light button.bg-emerald-600,
+.light button.bg-slate-800,
+.light button.bg-slate-900,
+.light button.bg-red-600,
+.light button[class*="bg-gradient-to"],
+.light button[class*="bg-gradient-to"] *,
+.light a.bg-indigo-600,
+.light a.bg-indigo-500,
+.light a.bg-violet-600,
+.light a.bg-rose-600,
+.light a.bg-emerald-600,
+.light a.bg-slate-800,
+.light a.bg-slate-900,
+.light a.bg-red-600,
+.light a[class*="bg-gradient-to"],
+.light a[class*="bg-gradient-to"] *,
+.light .bg-indigo-600 *,
+.light .bg-indigo-500 *,
+.light .bg-violet-600 *,
+.light .bg-rose-600 *,
+.light .bg-emerald-600 * {
+  color: #ffffff !important;
+}
+
+/* Fix hover text contrast for primary accents in Light Mode */
+.light [class*="hover:text-rose-350"]:hover,
+.light [class*="hover:text-rose-300"]:hover {
+  color: #be123c !important; /* rose-700 */
+}
+.light [class*="hover:text-indigo-300"]:hover {
+  color: #4338ca !important; /* indigo-700 */
+}
+.light [class*="hover:text-violet-300"]:hover {
+  color: #6d28d9 !important; /* violet-700 */
+}
+.light [class*="hover:text-slate-350"]:hover,
+.light [class*="hover:text-slate-300"]:hover {
+  color: #0f172a !important; /* slate-900 */
+}
+
+/* Override faint grey texts */
+.light .text-slate-400 {
+  color: #475569 !important; /* slate-600 */
+}
+
+.light .text-slate-350,
+.light .text-slate-300 {
+  color: #334155 !important; /* slate-700 */
+}
+
+.light .text-slate-250,
+.light .text-slate-200 {
+  color: #0f172a !important; /* slate-900 */
+}
+
+.light .text-slate-500 {
+  color: #57534e !important; /* stone-600 or dark gray */
+}
+
+/* Override pastel colors for high contrast */
+.light .text-indigo-400 {
+  color: #4f46e5 !important; /* Indigo-600 */
+}
+
+.light .text-violet-400 {
+  color: #7c3aed !important; /* Violet-600 */
+}
+
+.light .text-emerald-400 {
+  color: #059669 !important; /* Emerald-600 */
+}
+
+.light .text-amber-400 {
+  color: #d97706 !important; /* Amber-600 */
+}
+
+.light .text-rose-400 {
+  color: #e11d48 !important; /* Rose-600 */
+}
+
+.light .text-cyan-400 {
+  color: #0891b2 !important; /* Cyan-600 */
+}
+
+/* Sidebar Specific Overrides */
+.light aside a {
+  color: #475569 !important;
+}
+
+.light aside a:hover {
+  color: #0f172a !important;
+  background-color: rgba(99, 102, 241, 0.08) !important;
+}
+
+.light aside a.active {
+  color: #4f46e5 !important;
+  background-color: rgba(99, 102, 241, 0.1) !important;
+  border-color: rgba(99, 102, 241, 0.3) !important;
+}
+
+/* Inputs, Textareas, Select elements visibility in Light Mode */
+.light input,
+.light select,
+.light textarea {
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important; /* slate-300 */
+  color: #0f172a !important;
+}
+
+.light input:focus,
+.light select:focus,
+.light textarea:focus {
+  border-color: #6366f1 !important; /* indigo-500 */
+  box-shadow: 0 0 0 1px #6366f1 !important;
+}
+
+.light input::placeholder,
+.light textarea::placeholder {
+  color: #94a3b8 !important; /* slate-400 */
+}
+
+/* Table overrides */
+.light table {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.light th {
+  color: #475569 !important;
+}
+
+.light tr:hover {
+  background-color: rgba(99, 102, 241, 0.05) !important;
+}
+
+/* Light Mode overrides for hardcoded dark elements (borders, backgrounds, text, and hovers) */
+.light .text-slate-100,
+.light .text-slate-50 {
+  color: #0f172a !important; /* default white/off-white text to slate-900 */
+}
+
+.light .text-slate-450 {
+  color: #475569 !important; /* slate-600 */
+}
+
+/* Map hardcoded dark border colors to a light indigo/purple glassmorphic border */
+.light [class*="border-slate-800"],
+.light [class*="border-slate-700"] {
+  border-color: rgba(99, 102, 241, 0.15) !important;
+}
+
+/* Map dark opacity background elements to a clean, subtle light-purple tint overlay */
+.light [class*="bg-slate-900/"],
+.light [class*="bg-slate-950/"],
+.light [class*="bg-slate-800/"] {
+  background-color: rgba(99, 102, 241, 0.04) !important;
+}
+
+/* Map dark hover backgrounds to light purple hover backgrounds */
+.light [class*="hover:bg-slate-800"]:hover,
+.light [class*="hover:bg-slate-900"]:hover,
+.light [class*="hover:bg-slate-950"]:hover {
+  background-color: rgba(99, 102, 241, 0.08) !important;
+}
+
+/* Intercept specific button hover styles */
+.light [class*="hover:bg-violet-950"]:hover {
+  background-color: rgba(124, 58, 237, 0.1) !important;
+}
+
+.light [class*="hover:bg-rose-950"]:hover {
+  background-color: rgba(225, 29, 72, 0.1) !important;
+}
+
+/* Intercept hover border styles */
+.light [class*="hover:border-slate-700"]:hover,
+.light [class*="hover:border-slate-600"]:hover,
+.light [class*="hover:border-indigo-500"]:hover {
+  border-color: rgba(99, 102, 241, 0.4) !important;
+}
+
+/* Make sure dropdown options look correct and have high contrast */
+.light option {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+}
+
+/* Fix text-slate-200 contrast in list hover items */
+.light [class*="hover:text-slate-200"]:hover,
+.light [class*="hover:text-white"]:hover {
+  color: #0f172a !important;
+}
+
+
