@@ -29,9 +29,9 @@ AstroGem is a comprehensive astrological intelligence and gemstone recommendatio
 
 ### ✨ Live Demo
 
-* 🌐 **Live Website**: [https://astrogem.onrender.com/](https://astrogem.onrender.com/)
+* 🌐 **Live Website**: [https://gem-stone-recommendation-iofc.vercel.app/](https://gem-stone-recommendation-iofc.vercel.app/)
 * 🚀 **Local Development Ready** - Clone and run with `npm run dev`
-* 🌐 **Production Deployed on Render**
+* 🌐 **Production Deployed on Vercel**
 
 ---
 
@@ -123,8 +123,8 @@ The project runs locally with front-and-backend concurrently:
 * Backend API runs on: [http://localhost:5000](http://localhost:5000)
 
 ### Production Deployment
-* **Backend Hosting**: Render / Heroku
-* **Frontend Hosting**: Vercel / Netlify
+* **Backend Hosting**: Vercel Serverless Functions
+* **Frontend Hosting**: Vercel Static Hosting
 * **Database**: MongoDB Atlas cloud cluster
 
 ---
